@@ -1,5 +1,11 @@
+require 'nokogiri'
+require 'open-uri'
+require 'pry'
+require 'mechanize'
+
 class Listing
   attr_reader :sequence_number, :parcel_url, :parcel_number, :value, :active
+  attr_reader :land_type, :actual_value, :assessed_value, :acreage
   
 	def initialize(input)
     @sequence_number = input[:sequence_number]
@@ -8,11 +14,22 @@ class Listing
     @value = input[:value]
     @active = input[:active]
   end
+  
+  def pull_deep_data
+    a = Mechanize.new
+    a.get(parcel_url) do |page|
+      # Click the guest login button
+      data_page = page.forms_with(css: 'td#middle_left form').first.submit
+      
+      # Now you're on the data page
+      row_with_size = data_page.at('//*[@id="middle"]/table/tbody/tr[2]/td[3]/table[2]')
+      @land_type = row_with_size.elements[2].elements[0].text.strip
+      @actual_value = row_with_size.elements[2].elements[1].text.scan(/\d/).join.to_i
+      @assessed_value = row_with_size.elements[2].elements[2].text.scan(/\d/).join.to_i
+      @acreage = row_with_size.elements[2].elements[3].text.to_f
+    end    
+  end
 end
-
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
 
 class ListingIndex
   
