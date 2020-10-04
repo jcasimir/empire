@@ -1,8 +1,7 @@
+Bundler.require
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/listing'
-require 'vcr'
-require 'webmock'
 
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"
@@ -11,7 +10,7 @@ VCR.configure do |config|
 end
 
 class ListingTest < Minitest::Test
-	def test_it_exists
+  def test_it_exists
     assert Listing.new(
       :sequence_number => "001",
       :parcel_url => "http://example.com",
@@ -38,32 +37,4 @@ class ListingTest < Minitest::Test
     assert_equal "PO BOX 1825, WINTER PARK, CO 80482-1825", listing.owner_address
   end
   
-end
-
-class ListingIndexTest < Minitest::Test
-  def test_it_fetches
-    assert ListingIndex.new.fetch
-  end
-  
-  def test_it_has_a_total_record_count
-    index = ListingIndex.new
-    index.fetch
-    assert index.total_listings > 100
-  end
-  
-  def test_it_makes_listings
-    index = ListingIndex.new
-    index.fetch
-    assert index.count > 0
-    assert index.first
-  end
-  
-  def test_it_loads_all_deep_data
-    VCR.use_cassette("all_deep_data") do
-      index = ListingIndex.new
-      index.fetch
-      index.listings.each{|l| l.pull_deep_data}
-      #binding.pry
-    end
-  end
 end
