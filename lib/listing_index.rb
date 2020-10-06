@@ -1,4 +1,5 @@
 require './lib/listing'
+require 'open-uri'
 
 class ListingIndex
   
