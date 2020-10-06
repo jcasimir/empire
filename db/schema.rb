@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_013202) do
+ActiveRecord::Schema.define(version: 2020_10_06_015030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "listing_indices", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "listings", force: :cascade do |t|
     t.integer "sequence_number"
@@ -29,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_10_06_013202) do
     t.string "owner_address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "listing_index_id"
   end
 
 end

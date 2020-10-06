@@ -1,0 +1,2 @@
+module ListingIndicesHelper
+end

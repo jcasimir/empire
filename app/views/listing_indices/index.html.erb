@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Indices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source document</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listing_indices.each do |listing_index| %>
+      <tr>
+        <td><%= listing_index.source_document %></td>
+        <td><%= link_to 'Show', listing_index %></td>
+        <td><%= link_to 'Edit', edit_listing_index_path(listing_index) %></td>
+        <td><%= link_to 'Destroy', listing_index, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listing Index', new_listing_index_path %>

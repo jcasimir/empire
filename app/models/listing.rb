@@ -1,12 +1,5 @@
 class Listing < ApplicationRecord
-  # def initialize(input)
-  #   @sequence_number = input[:sequence_number]
-  #   @parcel_url = input[:parcel_url]
-  #   @parcel_number = input[:parcel_number]
-  #   @tax_value = input[:tax_value]
-  #   @active = input[:active]
-  #   @acreage = 0
-  # end
+  belongs_to :listing_index
   
   def pull_deep_data
     if parcel_url

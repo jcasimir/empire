@@ -1,0 +1,22 @@
+<%= form_with(model: listing_index, local: true) do |form| %>
+  <% if listing_index.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(listing_index.errors.count, "error") %> prohibited this listing_index from being saved:</h2>
+
+      <ul>
+        <% listing_index.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :source_document %>
+    <%= form.text_field :source_document %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

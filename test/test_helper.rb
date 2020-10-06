@@ -5,7 +5,7 @@ require 'rails/test_help'
 VCR.configure do |config|
   config.cassette_library_dir = "./test/fixtures/vcr_cassettes"
   config.hook_into :webmock
-  config.allow_http_connections_when_no_cassette = false
+  config.allow_http_connections_when_no_cassette = true
 end
 
 class ActiveSupport::TestCase
@@ -13,7 +13,7 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  # fixtures :all
 
   # Add more helper methods to be used by all tests here...
 end
