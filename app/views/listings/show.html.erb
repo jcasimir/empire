@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sequence number:</strong>
+  <%= @listing.sequence_number %>
+</p>
+
+<p>
+  <strong>Parcel url:</strong>
+  <%= @listing.parcel_url %>
+</p>
+
+<p>
+  <strong>Tax value:</strong>
+  <%= @listing.tax_value %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @listing.active %>
+</p>
+
+<p>
+  <strong>Land type:</strong>
+  <%= @listing.land_type %>
+</p>
+
+<p>
+  <strong>Actual value:</strong>
+  <%= @listing.actual_value %>
+</p>
+
+<p>
+  <strong>Assessed value:</strong>
+  <%= @listing.assessed_value %>
+</p>
+
+<p>
+  <strong>Acreage:</strong>
+  <%= @listing.acreage %>
+</p>
+
+<p>
+  <strong>Owner name:</strong>
+  <%= @listing.owner_name %>
+</p>
+
+<p>
+  <strong>Owner address:</strong>
+  <%= @listing.owner_address %>
+</p>
+
+<%= link_to 'Edit', edit_listing_path(@listing) %> |
+<%= link_to 'Back', listings_path %>

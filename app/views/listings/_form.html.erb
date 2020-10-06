@@ -1,0 +1,67 @@
+<%= form_with(model: listing, local: true) do |form| %>
+  <% if listing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(listing.errors.count, "error") %> prohibited this listing from being saved:</h2>
+
+      <ul>
+        <% listing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :sequence_number %>
+    <%= form.number_field :sequence_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parcel_url %>
+    <%= form.text_field :parcel_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tax_value %>
+    <%= form.number_field :tax_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </div>
+
+  <div class="field">
+    <%= form.label :land_type %>
+    <%= form.text_field :land_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :actual_value %>
+    <%= form.number_field :actual_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :assessed_value %>
+    <%= form.number_field :assessed_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :acreage %>
+    <%= form.text_field :acreage %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_name %>
+    <%= form.text_field :owner_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :owner_address %>
+    <%= form.text_field :owner_address %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

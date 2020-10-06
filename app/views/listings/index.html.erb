@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sequence number</th>
+      <th>Parcel url</th>
+      <th>Tax value</th>
+      <th>Active</th>
+      <th>Land type</th>
+      <th>Actual value</th>
+      <th>Assessed value</th>
+      <th>Acreage</th>
+      <th>Owner name</th>
+      <th>Owner address</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listings.each do |listing| %>
+      <tr>
+        <td><%= listing.sequence_number %></td>
+        <td><%= listing.parcel_url %></td>
+        <td><%= listing.tax_value %></td>
+        <td><%= listing.active %></td>
+        <td><%= listing.land_type %></td>
+        <td><%= listing.actual_value %></td>
+        <td><%= listing.assessed_value %></td>
+        <td><%= listing.acreage %></td>
+        <td><%= listing.owner_name %></td>
+        <td><%= listing.owner_address %></td>
+        <td><%= link_to 'Show', listing %></td>
+        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
+        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Listing', new_listing_path %>
