@@ -1,46 +1,44 @@
 require 'test_helper'
 
 class ListingIndexTest < ActiveSupport::TestCase
-
-  def test_it_finds_the_page_count
-    index = ListingIndex.new
-    index.fetch
-    assert_equal 6, index.page_count
+  
+  def expected
+    {
+      :page_count => 6,
+      :count => 268,
+      :last_record => {
+        :sequence_number=>"000267", 
+        :parcel_url=>"http://assessor.co.grand.co.us/assessor/taxweb/account.jsp?accountNum=M010480", 
+        :parcel_number=>"M010480", 
+        :tax_value=>104, 
+        :active=>true
+      }
+    }  
   end
   
-  def test_it_parses_all_pages
-    index = ListingIndex.new
-    index.fetch
-    quantity = index.parse
-    assert quantity > 250
+  def test_it_finds_the_page_count
+    fetcher = ListingIndexFetcher.new
+    assert_equal expected[:page_count], fetcher.page_count
   end
-end
 
-# def test_it_has_a_total_record_count
-#   index = ListingIndex.new
-#   index.fetch
-#   assert index.listings.size > 10
-# end
-#     
-# def test_it_makes_listings
-#   index = ListingIndex.new
-#   index.fetch
-#   assert index.listings.size > 0
-#   assert index.listings.first
-# end
-#   
-# def test_it_loads_all_deep_data
-#   VCR.use_cassette("all_deep_data") do
-#     index = ListingIndex.new
-#     index.fetch
-#     index.listings.each{|l| l.pull_deep_data}
-#   end
-# end
-# 
-# def test_it_loads_a_second_page
-#   index = ListingIndex.new
-#   assert_equal 0, index.listings.size 
-#   index.fetch(2)
-#   assert index.listings.size > 75
-# end
-#   
+  def test_it_fetches_the_data
+    fetcher = ListingIndexFetcher.new
+    output = fetcher.fetch_all
+    assert_equal expected[:count], output.count
+    assert_equal expected[:last_record], output.last
+  end
+  
+  def test_it_creates_records
+    VCR.use_cassette("deep_listing_records") do
+      fetcher = ListingIndexFetcher.new
+      assert ListingIndex.all.empty?
+      assert Listing.all.empty?
+      
+      index = fetcher.store_records
+      
+      assert expected[:count], index.records.count
+      assert index.listings.find_by_sequence_number(expected[:last_record][:sequence_number])
+    end
+  end
+
+end
